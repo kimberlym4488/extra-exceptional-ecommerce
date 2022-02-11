@@ -9,7 +9,7 @@ const productData = [
   },
   {
     product_name: 'Running Sneakers',
-    price: 90.0,
+    price: 90.00,
     stock: 25,
     category_id: 5,
   },
@@ -21,6 +21,12 @@ const productData = [
   },
   {
     product_name: 'Top 40 Music Compilation Vinyl Record',
+    price: 12.99,
+    stock: 50,
+    category_id: 3,
+  },
+  {
+    product_name: 'Time to party',
     price: 12.99,
     stock: 50,
     category_id: 3,
