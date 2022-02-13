@@ -8,4 +8,4 @@ router.use('/products', productRoutes);
 router.use('/tags', tagRoutes);
 
 module.exports = router;
-//index is the entry point for all fs
+//this index is the entry point for all of our routes
