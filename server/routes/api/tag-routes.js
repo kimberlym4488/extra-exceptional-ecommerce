@@ -1,17 +1,16 @@
-const router = require("express").Router();
-const { exclude } = require("inquirer/lib/objects/separator");
-const { Category, Tag, Product, ProductTag } = require("../../models");
+const router = require('express').Router();
+const { Tag, Product } = require('../../models');
 
 // The `/api/tags` endpoint
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   // find all tags
   try {
     const tagData = await Tag.findAll({
       //include its associated Product data
       include: [{ model: Product }],
       attributes: {
-        exclude: ["tagId", "productId"],
+        exclude: ['tagId', 'productId'],
       },
     });
     res.status(200).json(tagData);
@@ -20,19 +19,19 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get('/:id', async (req, res) => {
   // find a single tag by its `id`
 
   try {
     const tagData = await Tag.findByPk(req.params.id, {
       include: [{ model: Product }],
       attributes: {
-        exclude: ["tagId", "productId"],
+        exclude: ['tagId', 'productId'],
       },
     });
 
     if (!tagData) {
-      return res.status(404).json({ message: "No tag found with that id!" });
+      return res.status(404).json({ message: 'No tag found with that id!' });
     }
 
     res.status(200).json(tagData);
@@ -42,7 +41,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post('/', async (req, res) => {
   // create a new category
   try {
     const tagData = await Tag.create({
@@ -54,7 +53,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put('/:id', async (req, res) => {
   // update a category by its `id` value
   try {
     const tagChange = await Tag.update(req.body, {
@@ -63,7 +62,7 @@ router.put("/:id", async (req, res) => {
       },
     });
     if (!tagChange[0]) {
-      res.status(404).json({ message: "No category exists with this id!" });
+      res.status(404).json({ message: 'No category exists with this id!' });
       return;
     }
     res.status(200).json(tagChange);
@@ -72,7 +71,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const tagDelete = await Tag.destroy({
       where: {
@@ -81,7 +80,7 @@ router.delete("/:id", async (req, res) => {
     });
 
     if (!tagDelete) {
-      res.status(404).json({ message: "No category exists for this id" });
+      res.status(404).json({ message: 'No category exists for this id' });
       return;
     }
     res.status(200).json(tagDelete);
