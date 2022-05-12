@@ -2,7 +2,9 @@ const path = require('path');
 const express = require('express');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
-const helpers = require('../client/utils/helpers');
+
+const helpers = require('./public/utils/helpers');
+require('dotenv').config();
 
 const sequelize = require('./config/connection');
 
@@ -20,9 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Tell the app which static path to pull from
 app.use(express.static(path.join(__dirname, 'public')));
-// Tell the app where to get routes from
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+  app.listen(PORT, () =>
+    console.log(`Now listening on http://localhost:${PORT}`)
+  );
 });

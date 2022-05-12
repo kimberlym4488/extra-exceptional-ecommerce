@@ -2,28 +2,28 @@ const { Tag } = require('../models');
 
 const tagData = [
   {
-    tag_name: 'rock music',
+    tag_name: 'sticker',
   },
   {
-    tag_name: 'pop music',
+    tag_name: 'vinyl decal',
   },
   {
-    tag_name: 'blue',
+    tag_name: 'shirt',
   },
   {
-    tag_name: 'red',
+    tag_name: 'sweatshirt',
   },
   {
-    tag_name: 'green',
+    tag_name: 'hat',
   },
   {
-    tag_name: 'white',
+    tag_name: 'tanktop',
   },
   {
-    tag_name: 'gold',
+    tag_name: 'mug',
   },
   {
-    tag_name: 'pop culture',
+    tag_name: 'stencil decal',
   },
 ];
 

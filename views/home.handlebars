@@ -1,0 +1,36 @@
+<div class='bg-primary text-white my-4'>
+  <h3 class='card-header justify-content-start'>Current inventory by
+    warehouse/location</h3>
+</div>
+
+<div class='row row-cols-1 row-cols-md-4 g-4 justify-content-center'>
+  {{#each allItems as |products|}}
+
+    <div class='col card gy-4 m-4 text-center'>
+      <div class='card-body'>
+        <h4 class='card-title'> {{product_name}}</h4>
+
+        <ul class='list-group list-group-flush'>
+
+          <li class='list-group-item'><b>Warehouse:
+              {{category.category_name}}</b></li>
+          <li class='list-group-item'>Price: ${{price}}</li>
+          <li class='list-group-item'>In stock: {{stock}}</li>
+          {{#if products.tags}}
+            <h5>This product is available as a:</h5>
+            {{#each products.tags as |tag|}}
+              <li class='list-group-item border-0'>{{tag.tag_name}}</li>
+            {{/each}}
+
+          {{/if}}
+        </ul>
+        <div class='card-footer'>
+          <a href='/api/products/{{id}}' class='card-link'>Edit this product
+            location, price or tags</a>
+        </div>
+      </div>
+    </div>
+    <br />
+  {{/each}}
+
+</div>

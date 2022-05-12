@@ -1,0 +1,31 @@
+/**
+ * Home for Branding CSS, with colors and typography
+ */
+:root {
+  /** Bootstrap Variable Mods **/
+  --bs-primary: #0dcaf0;
+  --bs-primary-rgb: 0, 156, 204;
+  --bs-secondary: #b8c5d6;
+  --bs-secondary-rgb: 184, 197, 214;
+  --bs-danger: #e5383b;
+  --bs-danger-rgb: 229, 56, 59;
+  --bs-body-font-family: 'Poppins', sans-serif !important;
+}
+.btn-primary {
+  border-color: transparent !important;
+  background: rgba(var(--bs-primary-rgb), 0.9);
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background: var(--bs-primary);
+}
+a {
+  color: var(--bs-primary);
+}
+a:hover {
+  color: var(--bs-primary);
+  filter: brightness(80%);
+}
+.border-danger {
+  border-color: var(--bs-danger) !important;
+}
