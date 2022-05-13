@@ -28,10 +28,10 @@ router.get('/', async (req, res) => {
 
 // get one product
 router.get('/:id', async (req, res) => {
-  // find a single product by its `id`
+  // find a single product by its `id`. Render necessary data to user.
   try {
     const productData = await Product.findByPk(req.params.id, {
-      attributes: ['product_name', 'price', 'stock'],
+      attributes: ['id', 'product_name', 'price', 'stock'],
 
       include: [
         { model: Category, attributes: ['category_name'] },
@@ -44,10 +44,12 @@ router.get('/:id', async (req, res) => {
     if (!productData) {
       return res
         .status(404)
-        .json({ message: 'No product wasfound with that id!' });
+        .json({ message: 'No product was found with that id!' });
     }
-
-    res.status(200).json(categoryData);
+    const product = productData.toJSON();
+    res.render('product', {
+      product,
+    });
   } catch (err) {
     res.status(500).json(err);
   }
@@ -58,6 +60,7 @@ router.post('/', (req, res) => {
     product_name: req.body.product_name,
     price: req.body.price,
     stock: req.body.stock,
+    category_id: req.body.category_id,
     tagIds: req.body.tagIds,
   };
   Product.create(req.body)

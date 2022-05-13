@@ -6,23 +6,21 @@ const { Category, Product, Tag, ProductTag } = require('../models');
 router.get('/', async (req, res) => {
   // find all categories
   try {
-    const categoryData = await Product.findAll({
+    const productData = await Product.findAll({
       //include its associated Category and Tag data
 
-      attributes: ['product_name', 'price', 'stock'],
+      attributes: ['id', 'product_name', 'price', 'stock'],
 
       include: [
-        { model: Category, attributes: ['category_name'] },
-
-        { model: Tag, attributes: ['tag_name'] },
+        { model: Category, attributes: ['category_name', 'id'] },
+        { model: Tag, attributes: ['tag_name', 'id'] },
       ],
-      exclude: ['product_tag'],
     });
 
-    const allItems = categoryData.map((item) => item.get({ plain: true }));
-    console.log(allItems);
+    const products = productData.map((item) => item.get({ plain: true }));
+    console.log(products);
     res.render('home', {
-      allItems,
+      products,
     });
   } catch (err) {
     console.log(err);

@@ -10,10 +10,11 @@ router.get('/', async (req, res) => {
       //include its associated Product data
       include: [{ model: Product }],
       attributes: {
-        exclude: ['tagId', 'productId'],
+        exclude: ['productId'],
       },
     });
     res.status(200).json(tagData);
+    console.log(tagData);
   } catch (err) {
     res.status(500).json(err);
   }
