@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Warehouse, Product, Tag, ProductTag } = require('../models');
+const { Warehouse, Product, Tag } = require('../models');
 
 // Home dashboard, generic display of all data before user refines requests
 
@@ -18,7 +18,7 @@ router.get('/', async (req, res) => {
     });
 
     const products = productData.map((item) => item.get({ plain: true }));
-    console.log(products);
+    // render home page on start
     res.render('home', {
       products,
     });

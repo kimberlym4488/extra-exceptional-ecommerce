@@ -55,6 +55,20 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   // create a new warehouse
   try {
+    // check for duplicates
+    const myWarehouseName = await Warehouse.findOne({
+      where: {
+        warehouse_name: req.body.warehouse_name,
+      },
+    });
+
+    if (myWarehouseName) {
+      res.status(400).json({
+        message: 'This warehouse name is already taken. Please try again.',
+      });
+      return;
+    }
+
     const warehouseData = await Warehouse.create({
       warehouse_name: req.body.warehouse_name,
     });

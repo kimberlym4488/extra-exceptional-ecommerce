@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 // add product function, on click inside add product modal.
 const addProduct = async (event) => {
   event.preventDefault();
@@ -31,7 +32,7 @@ const addProduct = async (event) => {
 
   if (response.ok) {
     const myProduct = await response.json();
-    alert(`Created new product' + ${myProduct.product_name}`);
+    alert('Created new product!');
     document.location.href = '/';
   } else {
     const errorObj = await response.json();
@@ -78,7 +79,7 @@ const editProduct = async (event, id) => {
 
   if (response.ok) {
     const myProduct = await response.json();
-    alert(`Edited product!`);
+    alert('Edited product!');
     window.location.href = '/';
   } else {
     const errorObj = await response.json();

@@ -58,6 +58,19 @@ router.get('/:id', async (req, res) => {
 // create a new tag
 router.post('/', async (req, res) => {
   try {
+    // check for duplicates
+    const myTagName = await Tag.findOne({
+      where: {
+        tag_name: req.body.tag_name,
+      },
+    });
+
+    if (myTagName) {
+      res.status(400).json({
+        message: 'This tag name is already taken. Please try again.',
+      });
+      return;
+    }
     const tagData = await Tag.create({
       tag_name: req.body.tag_name,
     });

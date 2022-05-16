@@ -1,15 +1,12 @@
 const router = require('express').Router();
 const { Product, Warehouse, Tag, ProductTag } = require('../../models');
 
-// The `/api/products` endpoint
-
 // get all products
 router.get('/', async (req, res) => {
   // find all products
   try {
     const productData = await Product.findAll({
       //include its associated Warehouse and Tag data
-
       attributes: ['product_name', 'price', 'stock'],
 
       include: [
@@ -58,7 +55,6 @@ router.get('/:id', async (req, res) => {
     );
     const tag = tagData.map((tag) => tag.get({ plain: true }));
 
-    // console.log(product, warehouse, tag);
     res.render('product', {
       product,
       warehouse,
@@ -69,7 +65,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 // create new product
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   req.body = {
     product_name: req.body.product_name,
     price: req.body.price,
@@ -77,7 +73,22 @@ router.post('/', (req, res) => {
     warehouse_id: req.body.warehouse_id,
     tagIds: req.body.tagIds,
   };
-  Product.create(req.body)
+
+  // check for duplicates
+
+  const myProductName = await Product.findOne({
+    where: {
+      product_name: req.body.product_name,
+    },
+  });
+
+  if (myProductName) {
+    res.status(400).json({
+      message: 'This product name is already taken. Please try again.',
+    });
+    return;
+  }
+  await Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
@@ -101,9 +112,24 @@ router.post('/', (req, res) => {
 });
 
 // update product
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
+  // check for duplicates
+  const myProductName = await Product.findOne({
+    where: {
+      product_name: req.body.product_name,
+      id: !req.params.id,
+    },
+  });
+  if (myProductName) {
+    res.status(400).json({
+      alert:
+        'This product name is already taken by a different product. Please try again.',
+    });
+    return;
+  }
+
   // update product data
-  Product.update(req.body, {
+  await Product.update(req.body, {
     where: {
       id: req.params.id,
     },
@@ -142,8 +168,8 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// delete a product by its `id` value
 router.delete('/:id', async (req, res) => {
-  // delete one product by its `id` value
   try {
     const productDelete = await Product.destroy({
       where: {

@@ -20,7 +20,7 @@ const addTag = async (event) => {
   if (response.ok) {
     const tag = await response.json();
     // would prefer to use toasts or sweet alerts, but since this is back-end focused, I used basic dom alert.
-    alert(`Created new tag ' + ${tag.tag_name}`);
+    alert('Created new tag!');
     window.location.href = '/';
   } else {
     const errorObj = await response.json();
@@ -28,32 +28,6 @@ const addTag = async (event) => {
   }
 };
 
-const editTag = async (event, id) => {
-  event.preventDefault();
-  let tag_name = document.querySelector('#tag-name').value;
-  // OPTIONAL: remove spaces so class name matches for edit dropdown
-  tag_name = tag_name.replace(/\s+/g, '-');
-  try {
-    const response = await fetch(`/api/tags/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        tag_name: tag_name,
-      }),
-    });
-
-    if (response.ok) {
-      // take user back to tag page and refresh with updated data.
-      window.location.href = '/api/tags/all';
-    } else {
-      console.log('Unable to edit this tag');
-    }
-  } catch (err) {
-    console.log('Unable to delete tag.');
-  }
-};
 // client side js to call our routes from the frontend.
 const deleteTag = async (id) => {
   try {
