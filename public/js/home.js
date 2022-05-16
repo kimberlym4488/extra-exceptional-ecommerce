@@ -1,7 +1,7 @@
 // after showing warehouses, show tags in the add product modal.
 const showTags = async (event) => {
   event.preventDefault();
-  const response = await fetch('api/tags/', {
+  const response = await fetch('/api/tags/', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -10,11 +10,11 @@ const showTags = async (event) => {
 
   if (response.ok) {
     const tags = await response.json();
-    let tagDropdown = document.querySelector('.tag-id');
+    let tagDropdown = document.querySelector('#new-tag-id');
     tagDropdown.length = 0;
 
     let tagDefaultOption = document.createElement('option');
-    tagDefaultOption.text = 'Choose a tag';
+    tagDefaultOption.text = 'Tags (ctrl/cmd + click to select multiple)';
 
     tagDropdown.add(tagDefaultOption);
     tagDropdown.selectedIndex = 0;
@@ -33,9 +33,9 @@ const showTags = async (event) => {
 };
 
 // function called when I click the add product modal open.
-const showWarehouses = async(event) => {
+const showWarehouses = async (event) => {
   event.preventDefault();
-  const response = await fetch('api/warehouses/', {
+  const response = await fetch('/api/warehouses/', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ const showWarehouses = async(event) => {
 
   if (response.ok) {
     const warehouses = await response.json();
-    let dropdown = document.querySelector('.warehouse-id');
+    let dropdown = document.querySelector('#new-warehouse-id');
     dropdown.length = 0;
 
     let defaultOption = document.createElement('option');

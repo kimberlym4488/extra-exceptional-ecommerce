@@ -40,15 +40,19 @@
               class='m-2 fs-6 bi bi-pencil-fill bg-transparent'
               style='color:#0dcaf0;cursor:pointer; border:none'
               data-toggle='collapse'
-              data-target='#edit-warehouse-{{warehouse.warehouse_name}}'
+              data-target='#edit-warehouse-{{warehouse.warehouse_name}}{{warehouse.id}}'
               aria-expanded='false'
               aria-controls='name-change'
             ></a>
             <div
               class='col-auto m-2 collapse'
-              id='edit-warehouse-{{warehouse.warehouse_name}}'
+              id='edit-warehouse-{{warehouse.warehouse_name}}{{warehouse.id}}'
             >
-              <input type='text' class='form-control' id='warehouse-name' />
+              <input
+                type='text'
+                class='form-control'
+                id='warehouse-name'
+              />
               <button
                 class='btn btn-secondary m-2'
                 onclick='editWarehouse(event,{{warehouse.id}})'
@@ -67,6 +71,14 @@
                 >{{product.product_name}}</li>
               </a>
             {{/each}}
+          {{else}}
+
+            <a
+              class='m-2 fs-5 bi bi-x-square-fill'
+              style='color:red;cursor:pointer'
+              id='delete-warehouse'
+              onclick='deleteWarehouse({{warehouse.id}})'
+            >Delete</a>
           {{/if}}
 
         </div>

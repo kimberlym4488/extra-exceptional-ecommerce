@@ -23,7 +23,7 @@ router.get('/all', async (req, res) => {
 router.get('/', async (req, res) => {
   // find all warehouses
   try {
-    const warehouseData = await warehouse.findAll({
+    const warehouseData = await Warehouse.findAll({
       // includes products
       include: [{ model: Product }],
     });
@@ -77,6 +77,25 @@ router.put('/:id', async (req, res) => {
       return;
     }
     res.status(200).json(warehouseChange);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// delete a warehouse by its `id` value. Front end will only allow a delete if the warehouse has NO products.
+router.delete('/:id', async (req, res) => {
+  try {
+    const warehouseDelete = await Warehouse.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+
+    if (!warehouseDelete) {
+      res.status(404).json({ message: 'No warehouse exists for this id' });
+      return;
+    }
+    res.status(200).json(warehouseDelete);
   } catch (err) {
     res.status(500).json(err);
   }

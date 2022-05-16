@@ -33,7 +33,6 @@ const editTag = async (event, id) => {
   let tag_name = document.querySelector('#tag-name').value;
   // OPTIONAL: remove spaces so class name matches for edit dropdown
   tag_name = tag_name.replace(/\s+/g, '-');
-  console.log(tag_name);
   try {
     const response = await fetch(`/api/tags/${id}`, {
       method: 'PUT',
@@ -44,7 +43,7 @@ const editTag = async (event, id) => {
         tag_name: tag_name,
       }),
     });
-    alert(response);
+
     if (response.ok) {
       // take user back to tag page and refresh with updated data.
       window.location.href = '/api/tags/all';

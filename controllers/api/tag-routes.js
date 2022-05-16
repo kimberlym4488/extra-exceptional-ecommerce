@@ -27,9 +27,6 @@ router.get('/', async (req, res) => {
     const tagData = await Tag.findAll({
       //include its associated Product data
       include: [{ model: Product }],
-      attributes: {
-        exclude: ['productId'],
-      },
     });
     res.status(200).json(tagData);
   } catch (err) {

@@ -93,7 +93,6 @@ const deleteProduct = async (event, id) => {
     confirm('This step can not be undone, are you sure you want to delete?')
   ) {
     try {
-      alert(id);
       const response = await fetch(`/api/products/${id}}`, {
         method: 'DELETE',
       });

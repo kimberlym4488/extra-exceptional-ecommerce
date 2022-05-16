@@ -44,6 +44,8 @@ router.get('/:id', async (req, res) => {
         .status(404)
         .json({ message: 'No product was found with that id!' });
     }
+    const product = productData.toJSON();
+    // retrieve all actve warehouse and tag info to populate those fields in the form.
     const warehouseData = await Warehouse.findAll({
       attributes: ['warehouse_name', 'id'],
     });
@@ -51,11 +53,10 @@ router.get('/:id', async (req, res) => {
       attributes: ['tag_name', 'id'],
     });
 
-    const product = productData.toJSON();
     const warehouse = warehouseData.map((warehouse) =>
-      warehouse.get({ plain: true }));
-    const tag = tagData.map((tag) =>
-      tag.get({ plain: true }));
+      warehouse.get({ plain: true })
+    );
+    const tag = tagData.map((tag) => tag.get({ plain: true }));
 
     // console.log(product, warehouse, tag);
     res.render('product', {

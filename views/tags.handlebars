@@ -56,12 +56,12 @@
             aria-controls='name-change'
           ></a>
           <div class='col-auto m-2 collapse' id='edit-tag-{{tag.tag_name}}'>
-            <input type='text' class='form-control' id='tag-name' />
+            <input type='text' class='form-control' id='tag-name' placeholder="tag name" />
             <button
               class='btn btn-secondary m-2'
               onclick='editTag(event,{{tag.id}})'
               class='card-link'
-            >Edit
+            >Save changes
             </button>
 
           </div>
@@ -72,10 +72,12 @@
             onclick='deleteTag({{tag.id}})'
           ></a>
   </div>
+   </div>
         <br />
       </div>
     {{/each}}
   </div>
+   
 
 {{else}}
   <div class='bg-primary text-white my-4 text-center'>

@@ -32,10 +32,15 @@ const addWarehouse = async (event) => {
 
 const editWarehouse = async (event, id) => {
   event.preventDefault();
-  let warehouse_name = document.querySelector('#warehouse-name').value;
+
+  let warehouse-name-id = `warehouse-name-${id}`
   // OPTIONAL: remove spaces so class name matches for edit dropdown
   warehouse_name = warehouse_name.replace(/\s+/g, '-');
 
+  if (warehouse_name === '') {
+    alert('You must enter at least one character for a warehouse name');
+    return;
+  }
   try {
     const response = await fetch(`/api/warehouses/${id}`, {
       method: 'PUT',
@@ -57,20 +62,18 @@ const editWarehouse = async (event, id) => {
     console.log('Unable to edit warehouse.');
   }
 };
-// client side js to call our routes from the frontend.
+// client side js to call our routes from the frontend. Only allow a delete if a warehouse has no products.
 const deleteWarehouse = async (id) => {
   if (
-    confirm(
-      'This step can not be undone, are you sure you want to delete? Products need to belong to a warehouse.'
-    )
+    confirm('This step can not be undone, are you sure you want to delete?')
   ) {
     try {
-      const response = await fetch(`/api/warehousess/${id}}`, {
+      const response = await fetch(`/api/warehouses/${id}}`, {
         method: 'DELETE',
       });
 
       if (response.ok) {
-        window.location.href = '/api/warehousess/all';
+        window.location.href = '/api/warehouses/all';
       } else {
         return console.log('Error has occurred');
       }
