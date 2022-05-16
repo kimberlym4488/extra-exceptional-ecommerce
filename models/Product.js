@@ -31,10 +31,10 @@ Product.init(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    category_id: {
+    warehouse_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'category',
+        model: 'warehouse',
         key: 'id',
       },
     },

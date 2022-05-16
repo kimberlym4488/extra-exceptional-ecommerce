@@ -1,5 +1,5 @@
-{{!-- Add product modal functionality, redner existing categories and tag options to user--}}
-<a class='text-decoration-none' style="color:black" data-bs-toggle='modal' data-bs-target='#add-product-modal' onclick="showCategories(event)"> 
+{{!-- Add product modal functionality, redner existing warehouses and tag options to user--}}
+<a class='text-decoration-none' style="color:black" data-bs-toggle='modal' data-bs-target='#add-product-modal' onclick="showWarehouses(event)"> 
     <h4 class='mt-4 bi bi-plus-circle text-center fs-5' style='cursor:pointer'> Add Product
     </h4>
 </a>
@@ -23,11 +23,11 @@
           <ul class='list-group list-group-flush'>
 
             <li class='list-group-item'><b>Warehouse:
-                {{category.category_name}}</b></li>
+                {{warehouse.warehouse_name}}</b></li>
             <li class='list-group-item'>Price: ${{price}}</li>
             <li class='list-group-item'>In stock: {{stock}}</li>
             {{#if product.tags}}
-              <h5>This product is available as a:</h5>
+              <h5 class="mt-2 fs-6"><i>Descriptions/Tags:</i></h5>
               {{#each product.tags as |tag|}}
                 <li class='list-group-item border-0'>{{tag.tag_name}}</li>
               {{/each}}
@@ -36,9 +36,9 @@
           </ul>
           {{!-- edit product --}}
              <div class='card-footer d-block'>
-            <form action = '/api/products/{{product.id}}'  method="get"   ><button class="bi bi-pencil-fill bg-transparent" style="color:darkgreen;cursor:pointer; border:none"type="submit" formmethod="get"></button></form>
+            <a href = '/api/products/{{product.id}}' class="m-2 bi bi-pencil-fill fs-5 bg-transparent" style="color:#0dcaf0;cursor:pointer; border:none"></a>
 {{!-- delete product --}}
-            <a class="bi bi-x-square-fill "  style="color:red;cursor:pointer" id="delete-product" onclick="deleteProduct({{product.id}})">
+            <a class="m-2 bi bi-x-square-fill fs-5 "  style="color:red;cursor:pointer" id="delete-product" onclick="deleteProduct(event,{{product.id}})">
           </a>
             </div>
         </div>
@@ -53,8 +53,7 @@
     <h3
       class='card-header justify-content-start'
       style='background-color:#0dcaf0'
-    >Your products will show up here, on your dashboard. Looks like you need to
-      add some!</h3>
+    >Your products will show up here, on your dashboard. Looks like you need to add some!</h3>
   </div>
 
 {{/if}}

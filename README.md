@@ -34,10 +34,10 @@ https://watch.screencastify.com/v/Qfx86A6YNS9OZHsVlfiq
 The back end of an e-commerce website is here! Built using nodeJS, mySQL, Sequelize, and Express.
 
 ## Installation
-Open in integrated terminal, enter your credentials in mySQL .env and source the ecommerce_db using mySQL. Run "node seeds" to seed the database. Then run "npm start" to execute the program. You can modify products, categories, and tags in insomnia. The database can be easily viewed using the mySQL workbench as well.
+Open in integrated terminal, enter your credentials in mySQL .env and source the ecommerce_db using mySQL. Run "node seeds" to seed the database. Then run "npm start" to execute the program. You can modify products, warehouses, and tags in insomnia. The database can be easily viewed using the mySQL workbench as well.
 
 ## Usage
-This can be used for an e-commerce website that needs various products, categories, and tags to help users view and sort your products.
+This can be used for an e-commerce website that needs various products, warehouses, and tags to help users view and sort your products.
 
 ## Test Instructions
 run test jest

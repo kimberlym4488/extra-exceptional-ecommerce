@@ -2,9 +2,9 @@ const { Model, DataTypes } = require('sequelize');
 
 const sequelize = require('../config/connection.js');
 
-class Category extends Model {}
-//contains our primary key for category_id
-Category.init(
+class Warehouse extends Model {}
+//contains our primary key for warehouse_id
+Warehouse.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -12,8 +12,8 @@ Category.init(
       primaryKey: true,
       autoIncrement:true,
     },
-    
-    category_name: {
+
+    warehouse_name: {
       type:DataTypes.STRING,
       allowNull: false,
     }
@@ -23,8 +23,8 @@ Category.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'category',
+    modelName: 'warehouse',
   }
 );
 
-module.exports = Category;
+module.exports = Warehouse;

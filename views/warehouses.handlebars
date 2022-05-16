@@ -1,57 +1,88 @@
-{{#if products}}
+<section class='mt-4 container-fluid justify-content-center text-center'>
+  <h5 class='title'>Add a warehouse</h5>
+  <form class='row g-3 justify-content-center form-create-tag'>
+    <div class='col-auto'>
+      <input
+        type='text'
+        class='form-control'
+        id='new-warehouse-name'
+        placeholder='New warehouse name'
+      />
+    </div>
+
+    <div class='col-auto'>
+      <button
+        type='submit'
+        class='btn btn-primary shadow-sm'
+        onclick='addWarehouse(event)'
+      >Create
+      </button>
+    </div>
+  </form>
+</section>
+
+{{#if warehouses}}
   <div class='bg-primary text-white my-4 text-center'>
     <h3
-      class='card-header justify-content-start'
+      class='card-header justify-content-start fs-6'
       style='background-color:#0dcaf0'
-    >Here are your current products</h3>
+    >Here are your current warehouses</h3>
   </div>
 
   <div class='row row-cols-1 row-cols-md-4 g-4 justify-content-center'>
-    {{#each products as |product|}}
+    {{#each warehouses as |warehouse|}}
 
       <div class='col card gy-4 m-4 text-center'>
         <div class='card-body'>
-          <h4 class='card-title'> {{product_name}} </h4>
+          <h3 class='card-title'>
+            {{warehouse.warehouse_name}}
+            <a
+              class='m-2 fs-6 bi bi-pencil-fill bg-transparent'
+              style='color:#0dcaf0;cursor:pointer; border:none'
+              data-toggle='collapse'
+              data-target='#edit-warehouse-{{warehouse.warehouse_name}}'
+              aria-expanded='false'
+              aria-controls='name-change'
+            ></a>
+            <div
+              class='col-auto m-2 collapse'
+              id='edit-warehouse-{{warehouse.warehouse_name}}'
+            >
+              <input type='text' class='form-control' id='warehouse-name' />
+              <button
+                class='btn btn-secondary m-2'
+                onclick='editWarehouse(event,{{warehouse.id}})'
+                class='card-link'
+              >Save changes
+              </button>
+            </div>
+          </h3>
+          {{#if warehouse.products}}
+            <h5 class='fs-5 mt-4'>Products:</h5>
+            {{#each warehouse.products as |product|}}
+              {{! when I click a product I am taken to the individal product page based on the id }}
+              <a href='/api/products/{{product.id}}'>
+                <li
+                  class='list-group-item border-0 fw-bold'
+                >{{product.product_name}}</li>
+              </a>
+            {{/each}}
+          {{/if}}
 
-          <ul class='list-group list-group-flush'>
-
-            <li class='list-group-item'><b>Warehouse:
-                {{category.category_name}}</b></li>
-            <li class='list-group-item'>Price: ${{price}}</li>
-            <li class='list-group-item'>In stock: {{stock}}</li>
-            {{#if product.tags}}
-              <h5>This product is available as a:</h5>
-              {{#each product.tags as |tag|}}
-                <li class='list-group-item border-0'>{{tag.tag_name}}</li>
-              {{/each}}
-
-            {{/if}}
-          </ul>
-          <div class='card-footer'>
-            <a href='/api/products/{{id}}' class='card-link'>Edit this product
-            </a>
-          </div>
         </div>
+        <br />
       </div>
-      <br />
     {{/each}}
-
   </div>
+
 {{else}}
   <div class='bg-primary text-white my-4 text-center'>
     <h3
       class='card-header justify-content-start'
       style='background-color:#0dcaf0'
-    >Your products will show up here, on your dashboard. Looks like you need to
-      add some!</h3>
+    >Your warehouses should show here. Looks like you need to add some!</h3>
   </div>
 
 {{/if}}
-<h4 class='bi bi-plus-circle text-center' style='color:#0dcaf0; cursor:pointer'>
-  <a class='text-decoration-none' style='color:#0dcaf0' data-bs-toggle='modal' data-bs-target='#add-product-modal' onclick="showCategories(event)"> Add Product</a>
-</h4>
 
-{{> modals/addWarehouse }}
-
-{{! link to client side js for adding products. }}
-<script src='/js/home.js'></script>
+<script src='/js/warehouses.js'></script>

@@ -24,7 +24,7 @@
 {{#if tags}}
   <div class='bg-primary text-white my-4 text-center'>
     <h3
-      class='card-header justify-content-start fs-5'
+      class='card-header justify-content-start fs-6'
       style='background-color:#0dcaf0'
     >Here are your current tags</h3>
   </div>
@@ -36,7 +36,7 @@
         <div class='card-body'>
           <h3 class='card-title'> {{tag.tag_name}} </h3>
           {{#if tag.products}}
-            <h5>These tags apply to the following products:</h5>
+            <h5>Products:</h5>
             {{#each tag.products as |product|}}
               {{! when I click a product I am taken to the individal product page based on the id }}
               <a href='/api/products/{{product.id}}'>
@@ -46,29 +46,32 @@
               </a>
             {{/each}}
           {{/if}}
-
-          <button
-            class='btn btn-primary m-2'
-            type='button'
+  <div class="card-footer">x
+          <a
+            class='m-2 fs-5 bi bi-pencil-fill bg-transparent'
+            style='color:#0dcaf0;cursor:pointer; border:none'
             data-toggle='collapse'
-            data-target='#{{tag.tag_name}}'
+            data-target='#edit-tag-{{tag.tag_name}}'
             aria-expanded='false'
             aria-controls='name-change'
-          >
-            Edit tag name
-          </button>
-          <div class='col-auto m-2 collapse' id={{tag.tag_name}}>
+          ></a>
+          <div class='col-auto m-2 collapse' id='edit-tag-{{tag.tag_name}}'>
             <input type='text' class='form-control' id='tag-name' />
             <button
               class='btn btn-secondary m-2'
-              onclick='editTag({{tag.id}})'
+              onclick='editTag(event,{{tag.id}})'
               class='card-link'
             >Edit
             </button>
 
           </div>
-
-        </div>
+          <a
+            class='m-2 fs-5 bi bi-x-square-fill'
+            style='color:red;cursor:pointer'
+            id='delete-tag'
+            onclick='deleteTag({{tag.id}})'
+          ></a>
+  </div>
         <br />
       </div>
     {{/each}}

@@ -1,4 +1,4 @@
-// after showing categories, show tags in the add product modal.
+// after showing warehouses, show tags in the add product modal.
 const showTags = async (event) => {
   event.preventDefault();
   const response = await fetch('api/tags/', {
@@ -33,9 +33,9 @@ const showTags = async (event) => {
 };
 
 // function called when I click the add product modal open.
-const showCategories = async(event) => {
+const showWarehouses = async(event) => {
   event.preventDefault();
-  const response = await fetch('api/categories/', {
+  const response = await fetch('api/warehouses/', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -43,22 +43,22 @@ const showCategories = async(event) => {
   });
 
   if (response.ok) {
-    const categories = await response.json();
-    let dropdown = document.querySelector('.category-id');
+    const warehouses = await response.json();
+    let dropdown = document.querySelector('.warehouse-id');
     dropdown.length = 0;
 
     let defaultOption = document.createElement('option');
-    defaultOption.text = 'Choose a category';
+    defaultOption.text = 'Choose a warehouse';
 
     dropdown.add(defaultOption);
     dropdown.selectedIndex = 0;
 
-    // add in each option for the categories dynamically.
+    // add in each option for the warehouses dynamically.
     let option;
-    for (let i = 0; i < categories.length; i++) {
+    for (let i = 0; i < warehouses.length; i++) {
       option = document.createElement('option');
-      option.text = categories[i].category_name;
-      option.value = categories[i].id;
+      option.text = warehouses[i].warehouse_name;
+      option.value = warehouses[i].id;
       dropdown.add(option);
     }
     showTags(event);

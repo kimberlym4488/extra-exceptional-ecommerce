@@ -20,7 +20,7 @@ router.get('/all', async (req, res) => {
   }
 });
 
-// The `/api/tags` endpoint to get them for adding product/edit product
+// The `/api/tags` endpoint to get tags in the adding product/edit product
 router.get('/', async (req, res) => {
   // find all tags
   try {
@@ -37,8 +37,8 @@ router.get('/', async (req, res) => {
   }
 });
 
+// find a single tag by its 'id'
 router.get('/:id', async (req, res) => {
-  // find a single tag by its `id`
   try {
     const tagData = await Tag.findByPk(req.params.id, {
       include: [{ model: Product }],
@@ -58,8 +58,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// create a new tag
 router.post('/', async (req, res) => {
-  // create a new tag
   try {
     const tagData = await Tag.create({
       tag_name: req.body.tag_name,
@@ -70,8 +70,8 @@ router.post('/', async (req, res) => {
   }
 });
 
+// update a tag by its `id` value
 router.put('/:id', async (req, res) => {
-  // update a tag by its `id` value
   try {
     const tagChange = await Tag.update(req.body, {
       where: {
@@ -79,7 +79,7 @@ router.put('/:id', async (req, res) => {
       },
     });
     if (!tagChange[0]) {
-      res.status(404).json({ message: 'No category exists with this id!' });
+      res.status(404).json({ message: 'No warehouse exists with this id!' });
       return;
     }
     res.status(200).json(tagChange);
@@ -87,7 +87,7 @@ router.put('/:id', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+// delete a tag
 router.delete('/:id', async (req, res) => {
   try {
     const tagDelete = await Tag.destroy({
@@ -97,7 +97,7 @@ router.delete('/:id', async (req, res) => {
     });
 
     if (!tagDelete) {
-      res.status(404).json({ message: 'No category exists for this id' });
+      res.status(404).json({ message: 'No warehouse exists for this id' });
       return;
     }
     res.status(200).json(tagDelete);

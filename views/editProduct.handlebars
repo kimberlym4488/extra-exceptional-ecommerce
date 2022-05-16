@@ -38,13 +38,13 @@
           </div>
           <div class='col-auto'>
             <select
-              type='number'
+              type='text'
               class='form-control'
-              id='category_id'
-              placeholder={{category_name}}
+              id='warehouse_id'
+              placeholder={{warehouse_name}}
             >
-              {{#each category as |category|}}
-                <option value='{{id}}'>{{category_name}}</option>
+              {{#each warehouse as |warehouse|}}
+                <option value='{{id}}'>{{warehouse_name}}</option>
               {{/each}}
             </select>
 
@@ -53,7 +53,7 @@
           <div class='col-auto'>
             <select
               multiple
-              type='number'
+              type='text'
               class='form-control'
               id='tag_id'
               placeholder='{{tag_name}}'
@@ -69,6 +69,7 @@
             <button
               type='submit'
               value='{{id}}'
+              style='background-color:#0dcaf0'
               class='btn btn-primary shadow-sm'
               onclick='editProduct({{id}})'
             >Edit</button>

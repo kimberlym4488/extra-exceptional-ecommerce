@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Product, Category, Tag, ProductTag } = require('../../models');
+const { Product, Warehouse, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
 
@@ -8,12 +8,12 @@ router.get('/', async (req, res) => {
   // find all products
   try {
     const productData = await Product.findAll({
-      //include its associated Category and Tag data
+      //include its associated Warehouse and Tag data
 
       attributes: ['product_name', 'price', 'stock'],
 
       include: [
-        { model: Category, attributes: ['category_name'] },
+        { model: Warehouse, attributes: ['warehouse_name'] },
         { model: Tag, attributes: ['tag_name'] },
       ],
       exclude: ['product_tag'],
@@ -33,7 +33,7 @@ router.get('/:id', async (req, res) => {
       attributes: ['id', 'product_name', 'price', 'stock'],
 
       include: [
-        { model: Category, attributes: ['category_name'] },
+        { model: Warehouse, attributes: ['warehouse_name'] },
         { model: Tag, attributes: ['tag_name'] },
       ],
       exclude: ['product_tag'],
@@ -44,23 +44,23 @@ router.get('/:id', async (req, res) => {
         .status(404)
         .json({ message: 'No product was found with that id!' });
     }
-    const categoryData = await Category.findAll({
-      attributes: ['category_name', 'id'],
+    const warehouseData = await Warehouse.findAll({
+      attributes: ['warehouse_name', 'id'],
     });
     const tagData = await Tag.findAll({
       attributes: ['tag_name', 'id'],
     });
 
     const product = productData.toJSON();
-    const category = categoryData.map((category) =>
-      category.get({ plain: true }));
+    const warehouse = warehouseData.map((warehouse) =>
+      warehouse.get({ plain: true }));
     const tag = tagData.map((tag) =>
       tag.get({ plain: true }));
 
-    // console.log(product, category, tag);
+    // console.log(product, warehouse, tag);
     res.render('product', {
       product,
-      category,
+      warehouse,
       tag,
     });
   } catch (err) {
@@ -73,7 +73,7 @@ router.post('/', (req, res) => {
     product_name: req.body.product_name,
     price: req.body.price,
     stock: req.body.stock,
-    category_id: req.body.category_id,
+    warehouse_id: req.body.warehouse_id,
     tagIds: req.body.tagIds,
   };
   Product.create(req.body)

@@ -3,7 +3,7 @@
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
-        <h5 class='modal-title'>Edit this product</h5>
+        <h5 class='modal-title'>Edit <i>{{product.product_name}}</i></h5>
       </div>
       <div class='modal-body'>
 
@@ -43,11 +43,11 @@
             <select
               type='number'
               class='form-control'
-              id='category_id'
-              placeholder={{category_name}}
+              id='warehouse-id'
+              placeholder={{warehouse_name}}
             >
-              {{#each category as |category|}}
-                <option value='{{id}}'>{{category_name}}</option>
+              {{#each warehouse as |warehouse|}}
+                <option value='{{id}}'>{{warehouse_name}}</option>
               {{/each}}
             </select>
 
@@ -59,7 +59,7 @@
               multiple
               type='number'
               class='form-control'
-              id='tag_id'
+              id='tag-id'
               placeholder='{{tag_name}}'
             >
               {{#each tag as |tag|}}
@@ -72,14 +72,28 @@
           <div class='row-auto'>
             <button
               type='submit'
-              value='{{id}}'
+              value='{{product.id}}'
+              style='background-color:#0dcaf0'
               class='btn btn-primary shadow-sm'
-              onclick='editProduct({{id}})'
-            >Edit</button>
+              onclick='editProduct(event,{{product.id}})'
+            >Save changes</button>
+
+              <button
+              type='submit'
+              value='{{id}}'
+              class='btn btn-danger shadow-sm'
+              onclick='deleteProduct(event,{{product.id}})'
+            >Delete Item</button>
+             
+            
+             <button
+              class='btn btn-secondary shadow-sm'
+            > <a class='text-decoration-none' style="color:white" href="/">Cancel Changes</a></button>
           </div>
         </form>
-
       </div>
     </div>
   </div>
 </div>
+
+<script src="/js/product.js"></script>

@@ -2,7 +2,7 @@
 const addTag = async (event) => {
   event.preventDefault();
   // remove spaces so class name matches tag name. An edge case would be if the user entered tag-name as the tag name.
-  const new_tag_name = $('#new-tag-name').val().split(' ').join('');
+  const new_tag_name = $('#new-tag-name').val().split(' ').join('-');
   if (new_tag_name === '') {
     alert('You must enter at least one character for a tag name');
     return;
@@ -28,11 +28,12 @@ const addTag = async (event) => {
   }
 };
 
-const editTag = async (id) => {
+const editTag = async (event, id) => {
+  event.preventDefault();
   let tag_name = document.querySelector('#tag-name').value;
   // OPTIONAL: remove spaces so class name matches for edit dropdown
   tag_name = tag_name.replace(/\s+/g, '-');
-
+  console.log(tag_name);
   try {
     const response = await fetch(`/api/tags/${id}`, {
       method: 'PUT',
@@ -55,7 +56,7 @@ const editTag = async (id) => {
   }
 };
 // client side js to call our routes from the frontend.
-deleteTag = async (id) => {
+const deleteTag = async (id) => {
   try {
     const response = await fetch(`/api/tags/${id}}`, {
       method: 'DELETE',
