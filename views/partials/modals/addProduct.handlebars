@@ -27,7 +27,7 @@
             <input
               type='text'
               class='form-control'
-              id='product-name'
+              id='new-product-name'
               placeholder='Product name'
             />
           </div>
@@ -35,7 +35,7 @@
             <input
               type='text'
               class='form-control'
-              id='price'
+              id='new-price'
               placeholder='price'
             />
           </div>
@@ -43,15 +43,15 @@
             <input
               type='number'
               class='form-control'
-              id='stock'
+              id='new-stock'
               placeholder='in-stock'
             />
           </div>
-          <div class='col-auto'>
+          <div class='row-auto'>
             <select
-              type='number'
-              class='form-control'
-              id='category_id'
+              type='text'
+              class='form-control category-id'
+              id='new-category-id'
               placeholder='category'
             >
 
@@ -59,20 +59,19 @@
 
           </div>
 
-          <div class='col-auto'>
+          <div class='row-auto'>
             <select
               multiple
-              type='number'
-              class='form-control'
-              id='tag_id'
+              type='text'
+              class='form-control tag-id'
+              id='new-tag-id'
               placeholder='tag'
             >
-            
             </select>
 
           </div>
 
-          <div class='col-auto'>
+          <div class='row-auto'>
             <button
               type='submit'
               class='btn btn-primary shadow-sm'
@@ -81,14 +80,6 @@
           </div>
         </form>
 
-        {{! Footer }}
-        <div class='modal-footer'>
-          <button
-            type='button'
-            class='btn btn-secondary'
-            data-bs-dismiss='modal'
-          >Close</button>
-        </div>
       </div>
     </div>
   </div>

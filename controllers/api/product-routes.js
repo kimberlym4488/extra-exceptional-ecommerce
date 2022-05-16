@@ -14,7 +14,6 @@ router.get('/', async (req, res) => {
 
       include: [
         { model: Category, attributes: ['category_name'] },
-
         { model: Tag, attributes: ['tag_name'] },
       ],
       exclude: ['product_tag'],
@@ -35,7 +34,6 @@ router.get('/:id', async (req, res) => {
 
       include: [
         { model: Category, attributes: ['category_name'] },
-
         { model: Tag, attributes: ['tag_name'] },
       ],
       exclude: ['product_tag'],
@@ -46,9 +44,24 @@ router.get('/:id', async (req, res) => {
         .status(404)
         .json({ message: 'No product was found with that id!' });
     }
+    const categoryData = await Category.findAll({
+      attributes: ['category_name', 'id'],
+    });
+    const tagData = await Tag.findAll({
+      attributes: ['tag_name', 'id'],
+    });
+
     const product = productData.toJSON();
+    const category = categoryData.map((category) =>
+      category.get({ plain: true }));
+    const tag = tagData.map((tag) =>
+      tag.get({ plain: true }));
+
+    // console.log(product, category, tag);
     res.render('product', {
       product,
+      category,
+      tag,
     });
   } catch (err) {
     res.status(500).json(err);

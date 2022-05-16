@@ -4,9 +4,9 @@
     <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
     <title>Extra Exceptional e-Commerce</title>
-    <link rel='stylesheet' href='./css/style.css' />
-    <link rel='stylesheet' href='./css/branding.css' />
-    <link rel='stylesheet' href='./css/bs-overrides.css' />
+    <link rel='stylesheet' href='/css/style.css' />
+    <link rel='stylesheet' href='/css/branding.css' />
+    <link rel='stylesheet' href='/css/bs-overrides.css' />
     {{! Bootstrap Styles/Icons }}
     <link
       rel='stylesheet'
@@ -35,54 +35,52 @@
   </head>
 
   <body>
-    <nav class='navbar navbar-light bg-light'>
+    <nav class='navbar navbar-light bg-none'>
       <div class='container-fluid'>
-        <span class='navbar-brand mb-0 h1'>Exceptional e-Commerce</span>
-      </div>
+        <a
+          href='/'
+          class='navbar-brand mr-auto mb-0 h1 text-decoration-none'
+        >Exceptional e-Commerce</a>
 
-      <div class='container-fluid'>
+        <div class='nav-item btn-group w-50 justify-content-center'>
+
+          <a
+            href='/'
+            class='btn btn-primary nav-item'
+            style='background-color:#0dcaf0'
+            aria-current='home-products-page'
+          >Products
+          </a>
+          <a
+            onclick="window.location.href='/api/warehouses/all'"
+            class='btn btn-primary nav-item'
+            style='background-color:#0dcaf0'
+            aria-current='warehouses-page'
+          >Warehouses
+          </a>
+          <a
+            onclick="window.location.href='/api/tags/all'"
+            class='btn btn-primary nav-item'
+            style='background-color:#0dcaf0'
+            aria-current='tags-page'
+          >Tags
+          </a>
+
+        </div>
       </div>
     </nav>
 
     <main class='card text-center'>
 
-      <div class='card-body'>
-        <h5 class='card-title'>What do you need to do today?</h5>
-        <p class='card-text'>Click an option below to get started. </p>
-
-        <div class='btn-group' style='color:#0dcaf0'>
-          <a
-            href='api/categories'
-            class='btn btn-primary active'
-            aria-current='page'
-          >Warehouses
-          </a>
-          <a
-            href='api/products'
-            class='btn btn-primary '
-            aria-current='page'
-          >Products
-          </a>
-          <a
-            href='api/tags'
-            class='btn btn-primary'
-            aria-current='page'
-          >Tags
-          </a>
-
-        </div>
-
-      </div>
-
-    
     </main>
 
     {{{body}}}
+
     <footer class='page-footer bg-secondary px-3'>
       <div class='text-center'>
         <a href='https://github.com/kimberlym4488/extra-exceptional-ecommerce'>
           <img
-            src='./assets/GitHub-Emblem.png'
+            src='/assets/GitHub-Emblem.png'
             style='width:80px;height:40px'
           /></a>
       </div>
@@ -98,6 +96,7 @@
       integrity='sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF'
       crossorigin='anonymous'
     ></script>
+
   </body>
 
 </html>

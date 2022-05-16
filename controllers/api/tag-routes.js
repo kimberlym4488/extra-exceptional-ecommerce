@@ -1,8 +1,26 @@
 const router = require('express').Router();
 const { Tag, Product } = require('../../models');
 
-// The `/api/tags` endpoint
+// render tags page
+router.get('/all', async (req, res) => {
+  // find all tags
+  try {
+    const tagData = await Tag.findAll({
+      //include its associated Product data
+      attributes: ['id', 'tag_name'],
 
+      include: [{ model: Product, attributes: ['product_name', 'id'] }],
+    });
+    const tags = tagData.map((tag) => tag.get({ plain: true }));
+    res.render('tags', {
+      tags,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// The `/api/tags` endpoint to get them for adding product/edit product
 router.get('/', async (req, res) => {
   // find all tags
   try {
@@ -14,7 +32,6 @@ router.get('/', async (req, res) => {
       },
     });
     res.status(200).json(tagData);
-    console.log(tagData);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -22,7 +39,6 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   // find a single tag by its `id`
-
   try {
     const tagData = await Tag.findByPk(req.params.id, {
       include: [{ model: Product }],
@@ -43,7 +59,7 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  // create a new category
+  // create a new tag
   try {
     const tagData = await Tag.create({
       tag_name: req.body.tag_name,
@@ -55,7 +71,7 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  // update a category by its `id` value
+  // update a tag by its `id` value
   try {
     const tagChange = await Tag.update(req.body, {
       where: {

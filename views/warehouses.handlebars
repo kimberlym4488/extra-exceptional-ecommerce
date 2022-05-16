@@ -1,0 +1,57 @@
+{{#if products}}
+  <div class='bg-primary text-white my-4 text-center'>
+    <h3
+      class='card-header justify-content-start'
+      style='background-color:#0dcaf0'
+    >Here are your current products</h3>
+  </div>
+
+  <div class='row row-cols-1 row-cols-md-4 g-4 justify-content-center'>
+    {{#each products as |product|}}
+
+      <div class='col card gy-4 m-4 text-center'>
+        <div class='card-body'>
+          <h4 class='card-title'> {{product_name}} </h4>
+
+          <ul class='list-group list-group-flush'>
+
+            <li class='list-group-item'><b>Warehouse:
+                {{category.category_name}}</b></li>
+            <li class='list-group-item'>Price: ${{price}}</li>
+            <li class='list-group-item'>In stock: {{stock}}</li>
+            {{#if product.tags}}
+              <h5>This product is available as a:</h5>
+              {{#each product.tags as |tag|}}
+                <li class='list-group-item border-0'>{{tag.tag_name}}</li>
+              {{/each}}
+
+            {{/if}}
+          </ul>
+          <div class='card-footer'>
+            <a href='/api/products/{{id}}' class='card-link'>Edit this product
+            </a>
+          </div>
+        </div>
+      </div>
+      <br />
+    {{/each}}
+
+  </div>
+{{else}}
+  <div class='bg-primary text-white my-4 text-center'>
+    <h3
+      class='card-header justify-content-start'
+      style='background-color:#0dcaf0'
+    >Your products will show up here, on your dashboard. Looks like you need to
+      add some!</h3>
+  </div>
+
+{{/if}}
+<h4 class='bi bi-plus-circle text-center' style='color:#0dcaf0; cursor:pointer'>
+  <a class='text-decoration-none' style='color:#0dcaf0' data-bs-toggle='modal' data-bs-target='#add-product-modal' onclick="showCategories(event)"> Add Product</a>
+</h4>
+
+{{> modals/addWarehouse }}
+
+{{! link to client side js for adding products. }}
+<script src='/js/home.js'></script>

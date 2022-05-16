@@ -5,7 +5,7 @@ const tagData = [
     tag_name: 'sticker',
   },
   {
-    tag_name: 'vinyl decal',
+    tag_name: 'vinyl-decal',
   },
   {
     tag_name: 'shirt',
@@ -23,7 +23,7 @@ const tagData = [
     tag_name: 'mug',
   },
   {
-    tag_name: 'stencil decal',
+    tag_name: 'stencil-decal',
   },
 ];
 

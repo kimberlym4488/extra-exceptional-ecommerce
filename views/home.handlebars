@@ -1,12 +1,19 @@
+{{!-- Add product modal functionality, redner existing categories and tag options to user--}}
+<a class='text-decoration-none' style="color:black" data-bs-toggle='modal' data-bs-target='#add-product-modal' onclick="showCategories(event)"> 
+    <h4 class='mt-4 bi bi-plus-circle text-center fs-5' style='cursor:pointer'> Add Product
+    </h4>
+</a>
+{{!-- Conditional logic to display current products, if they exist --}}
 {{#if products}}
-  <div class='bg-primary text-white my-4 text-center'>
+ <div class='bg-primary text-white my-4 text-center'>
     <h3
-      class='card-header justify-content-start'
+      class='card-header justify-content-start fs-5'
       style='background-color:#0dcaf0'
-    >Welcome Home! Here's your current inventory</h3>
+    >Here are your current products</h3>
   </div>
 
   <div class='row row-cols-1 row-cols-md-4 g-4 justify-content-center'>
+    {{!-- map each product --}}
     {{#each products as |product|}}
 
       <div class='col card gy-4 m-4 text-center'>
@@ -27,10 +34,13 @@
 
             {{/if}}
           </ul>
-          <div class='card-footer'>
-            <a href='/api/products/{{id}}' class='card-link'>Edit this product
-            </a>
-          </div>
+          {{!-- edit product --}}
+             <div class='card-footer d-block'>
+            <form action = '/api/products/{{product.id}}'  method="get"   ><button class="bi bi-pencil-fill bg-transparent" style="color:darkgreen;cursor:pointer; border:none"type="submit" formmethod="get"></button></form>
+{{!-- delete product --}}
+            <a class="bi bi-x-square-fill "  style="color:red;cursor:pointer" id="delete-product" onclick="deleteProduct({{product.id}})">
+          </a>
+            </div>
         </div>
       </div>
       <br />
@@ -38,6 +48,7 @@
 
   </div>
 {{else}}
+{{!-- if no products, display generic message for user --}}
   <div class='bg-primary text-white my-4 text-center'>
     <h3
       class='card-header justify-content-start'
@@ -47,11 +58,11 @@
   </div>
 
 {{/if}}
-<h4 class='bi bi-plus-circle text-center' style='color:#0dcaf0; cursor:pointer'>
-  <a class='text-decoration-none' style='color:#0dcaf0' data-bs-toggle='modal' data-bs-target='#add-product-modal' onclick="showCategories(event)"> Add Product</a>
-</h4>
 
+{{!-- add product modal broken out in modular code example.  --}}
 {{> modals/addProduct }}
 
-{{! link to client side js for adding products. }}
+
+{{! link to client side js for viewing, adding, editing, or deleting products. }}
 <script src='/js/home.js'></script>
+<script src='/js/product.js'></script>

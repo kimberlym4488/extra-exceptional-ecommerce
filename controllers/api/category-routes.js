@@ -1,8 +1,26 @@
 const router = require('express').Router();
 const { Category, Product } = require('../../models');
 
-// The `/api/categories` endpoint
+// The `/api/categories/all` endpoint
+router.get('/all', async (req, res) => {
+  // find all categories
+  try {
+    const warehouseData = await Category.findAll({
+      // includes products associated with this warehouse
+      include: [{ model: Product, attributes: ['product_name', 'id'] }],
+    });
+    const warehouses = warehouseData.map((warehouse) =>
+      warehouse.get({ plain: true })
+    );
+    res.render('warehouses', {
+      warehouses,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
+// Display warehouse options on individual product page
 router.get('/', async (req, res) => {
   // find all categories
   try {

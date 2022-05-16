@@ -1,4 +1,6 @@
-<div class='container-fluid'>
+<div
+  class='container-fluid'
+>
 
   <div class='modal-dialog'>
     <div class='modal-content'>
@@ -11,7 +13,6 @@
 
         <form class='row g-3 align-items-end form-create-product'>
           <div class='col-auto'>
-              <label for 'name'>Name</label>
             <input
               type='text'
               class='form-control'
@@ -20,17 +21,14 @@
             />
           </div>
           <div class='col-auto'>
-              <label for 'price'>Price</label>
             <input
               type='text'
               class='form-control'
               id='price'
-              display='price'
               placeholder={{product.price}}
             />
           </div>
           <div class='col-auto'>
-                 <label for 'in-stock'>In-stock</label>
             <input
               type='number'
               class='form-control'
@@ -38,8 +36,7 @@
               placeholder={{product.stock}}
             />
           </div>
-          <div class='row-auto'>
-               <label for 'warehouses'>Warehouses</label>
+          <div class='col-auto'>
             <select
               type='number'
               class='form-control'
@@ -53,8 +50,7 @@
 
           </div>
 
-          <div class='row-auto'>
-            <label for 'tags'>Tags <span style="font-style:italic;font-size:smaller">(ctrl or cmd+click to select multiple)</span></label>
+          <div class='col-auto'>
             <select
               multiple
               type='number'
@@ -62,14 +58,14 @@
               id='tag_id'
               placeholder='{{tag_name}}'
             >
-              {{#each tag as |tag|}}
-                <option value='{{id}}'>{{tag_name}}</option>
-              {{/each}}
+            {{#each tag as |tag|}}
+              <option value='{{id}}'>{{tag_name}}</option>
+
             </select>
 
           </div>
 
-          <div class='row-auto'>
+          <div class='col-auto'>
             <button
               type='submit'
               value='{{id}}'
